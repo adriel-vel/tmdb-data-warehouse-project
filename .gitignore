@@ -1,0 +1,15 @@
+# Python virtual environment
+venv/
+
+# Environment variables
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Raw datasets
+datasets/raw/
+
+# OS files
+.DS_Store
