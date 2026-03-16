@@ -20,13 +20,10 @@ def get_trending_movies(api_key, time_window='day'):
 
         if response.status_code == 200:
             data = response.json()
-            filename = f"datasets/raw/trending_movies_{today}_page{page}.json"
-            with open(filename, "w") as f:
-                json.dump(data, f)
-
             all_movies.extend(data["results"])
         else:
             print("Request failed:", response.status_code)
     return all_movies
 
 movies = get_trending_movies(api_key)
+print(movies[0])
