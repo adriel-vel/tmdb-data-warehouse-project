@@ -51,7 +51,7 @@ The warehouse supports analysis such as:
 
 This project is licensed under the MIT License. You are free to use, modify, and distribute this project for educational or personal use.\
 
-## Aout Me
+## About Me
 
 Hello! I'm **Adriel Velasquez**, and I am currently a Computer Science Major at Stony Brook University with a goal of becoming a Data Engineer. 
 I love to explore how data can be transofrmed into useful insights. Through projects like this one, I am to develop practical data engineering skills and create systems that help peopel explore and understand data.
