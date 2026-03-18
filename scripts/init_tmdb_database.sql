@@ -23,3 +23,40 @@ CREATE DATABASE tmdb_warehouse;
 CREATE SCHEMA IF NOT EXISTS bronze;
 CREATE SCHEMA IF NOT EXISTS silver;
 CREATE SCHEMA IF NOT EXISTS gold;
+
+/*
+================================================
+Create Database and Schemas
+================================================
+Table Purpose:
+	Stores the raw movie data exactly as it appears in the source CSV.
+	All columns are TEXT to avoid load failures from dity or unexpected data.
+	No transformations are applied here.
+*/
+
+CREATE TABLE IF NOT EXISTS bronze.tmdb_movies(
+    id                    TEXT,
+    title                 TEXT,
+    vote_average          TEXT,
+    vote_count            TEXT,
+    status                TEXT,
+    release_date          TEXT,
+    revenue               TEXT,
+    runtime               TEXT,
+    adult                 TEXT,
+    backdrop_path         TEXT,
+    budget                TEXT,
+    homepage              TEXT,
+    imdb_id               TEXT,
+    original_language     TEXT,
+    original_title        TEXT,
+    overview              TEXT,
+    popularity            TEXT,
+    poster_path           TEXT,
+    tagline               TEXT,
+    genres                TEXT,
+    production_companies  TEXT,
+    production_countries  TEXT,
+    spoken_languages      TEXT,
+    keywords              TEXT
+);
