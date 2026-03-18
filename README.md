@@ -5,34 +5,51 @@ This project extracts movie data from the TMDB API and will then process it thro
 The warehouse follows a Medallion Architecture (Bronze, Silver, Gold) and supports SQL-based analysis of movie trends such as genres, ratings, and release patterns.
 
 ---
+## Tech Stack
 
-## Data Engineering: Building the Data Warehouse
+| Tool | Purpose |
+|---|---|
+| Python | ETL scripting — extract and load data |
+| Kaggle API | Programattic dataset download via 'kagglehub' |
+| PostgreSQL | Data warehouse storage |
+| SQL | Data transformation and analytics |
 
-### Objective
-Design and implement a data warehouse that stores trending movie data from the TMDB API and prepares it for analytics.
+---
+## Data Source
 
-### Specifications
+**Dataset:** TMDB Movies Dataset (~1,000,000 movies) sourced from [Kaggle](https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies)
 
-**Data Source**
-- TMDB REST API
+The dataset contains movie metadata srouced from The Movie Database (TMDB), including:
 
-**Data Quality**
-- Clean and standardize raw movie data
-- Handle missing values and inconsistent formats
+- Title, original title, and overview
+- Release data and status
+- Genres
+- Popularity score and vote average
+- Runtime, budget, and revenue
+- Production companies, countries, and spoken languages
+- Keywords
 
-**Data Integration**
-- Combine trending movie data with additional movie metadata
+---
 
-**Scope**
-- Extract trending movie data using Python
-- Store raw data in PostgreSQL
-- Transform and model the data using SQL
-- Organize the warehouse using Bronze, Silver, and Gold Layers
+## Architecture
 
-**Documentation**
-- Architecture diagram
-- Data catalog
-- Project documentation
+This project follows the **Medallion Architecture** pattern, organizing data into three progressive layers (Bronze, Silver, and Gold).
+
+For a full architecture diagram, see ['docs/TMBD_data_architecture.png'](docs/TMBD_data_architecture.png).
+
+### Bronze Layer
+Stores the raw movide data exactly as it appears in the source CSV. No transformations applied. Acts as the original file to fall back on if our code breaks.
+
+### Silver Layer
+Cleans and standardizes the raw data:
+- Handles missing and null values
+- Standardizes data types (dates, booleans, numerics)
+- Parses the 'genres' column (comma-separated text) into a normalized bridge table linking movies to genres
+
+### Gold Layer
+Produces analytics-ready aggregated tables designed to answer specific business questions about movies popularity, genres, ratings, and release patterns.
+
+---
 
 ## Analytics & Reporting
 
@@ -41,17 +58,49 @@ Provide an analytics-ready dataset that allows exploration of trends in movie po
 
 The warehouse supports analysis such as:
 
-- Trending movies over time
-- Most common genres among trending movies
-- Average runtime of trending movies
+- Which movies have the highest popularity scores?
+- Most common genres among popular movies?
+- Average runtime of popular movies?
 - Release timing patterns
-- Relationship between ratings and popularity\
+- Relationship between ratings and popularity
+
+## Repository Structure
+
+```
+tmdb-warehouse/
+├── datasets/
+│   └── raw/                  # Raw CSV file (not committed to git)
+├── docs/                     # Architecture diagrams and data catalog
+├── scripts/
+│   ├── init_tmdb_database.sql    # Database and schema setup
+│   ├── extract_tmdb_movies.py    # Download dataset via Kaggle API
+│   ├── load_tmdb_movies.py       # Load CSV into bronze layer
+│   ├── silver_movies.sql         # Clean and standardize movies
+│   ├── silver_genres.sql         # Normalize genres into bridge table
+│   └── gold_*.sql                # Gold layer analytics tables
+├── tests/                    # Pipeline tests
+├── .env.example              # Environment variable template
+├── .gitignore
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Python 3.8+
+- PostgreSQL
+- A Kaggle account with an API key ('kaggle.json')
+
+---
 
 ## License
 
 This project is licensed under the MIT License. You are free to use, modify, and distribute this project for educational or personal use.\
 
-## Aout Me
+## About Me
 
 Hello! I'm **Adriel Velasquez**, and I am currently a Computer Science Major at Stony Brook University with a goal of becoming a Data Engineer. 
 I love to explore how data can be transofrmed into useful insights. Through projects like this one, I am to develop practical data engineering skills and create systems that help peopel explore and understand data.
