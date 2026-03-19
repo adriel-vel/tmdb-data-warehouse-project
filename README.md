@@ -1,7 +1,7 @@
 # TMDB Data Warehouse and Analytics Project
 
 Welcome! This project will demonstrate a data warehouse using Python and PostgreSQL.
-This project extracts movie data from the TMDB API and will then process it through an ETL pipleine to create a structured data warehouse designed for analytics.
+This project extracts movie data from a Kaggle Dataset using Kaggle API that is sourced from TMDB data and I will then process it through an ETL pipleine to create a structured data warehouse designed for analytics.
 The warehouse follows a Medallion Architecture (Bronze, Silver, Gold) and supports SQL-based analysis of movie trends such as genres, ratings, and release patterns.
 
 ---
@@ -10,7 +10,7 @@ The warehouse follows a Medallion Architecture (Bronze, Silver, Gold) and suppor
 | Tool | Purpose |
 |---|---|
 | Python | ETL scripting — extract and load data |
-| Kaggle API | Programattic dataset download via 'kagglehub' |
+| Kaggle API | Programmatic dataset download via 'kagglehub' |
 | PostgreSQL | Data warehouse storage |
 | SQL | Data transformation and analytics |
 
@@ -19,7 +19,7 @@ The warehouse follows a Medallion Architecture (Bronze, Silver, Gold) and suppor
 
 **Dataset:** TMDB Movies Dataset (~1,000,000 movies) sourced from [Kaggle](https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies)
 
-The dataset contains movie metadata srouced from The Movie Database (TMDB), including:
+The dataset contains movie metadata sourced from The Movie Database (TMDB), including:
 
 - Title, original title, and overview
 - Release data and status
@@ -38,7 +38,7 @@ This project follows the **Medallion Architecture** pattern, organizing data int
 For a full architecture diagram, see ['docs/TMBD_data_architecture.png'](docs/TMBD_data_architecture.png).
 
 ### Bronze Layer
-Stores the raw movide data exactly as it appears in the source CSV. No transformations applied. Acts as the original file to fall back on if our code breaks.
+Stores the raw movie data exactly as it appears in the source CSV. No transformations applied. Acts as the original file to fall back on if our code breaks.
 
 ### Silver Layer
 Cleans and standardizes the raw data:
@@ -103,4 +103,4 @@ This project is licensed under the MIT License. You are free to use, modify, and
 ## About Me
 
 Hello! I'm **Adriel Velasquez**, and I am currently a Computer Science Major at Stony Brook University with a goal of becoming a Data Engineer. 
-I love to explore how data can be transofrmed into useful insights. Through projects like this one, I am to develop practical data engineering skills and create systems that help peopel explore and understand data.
+I love to explore how data can be transformed into useful insights. Through projects like this one, I am to develop practical data engineering skills and create systems that help people explore and understand data.
