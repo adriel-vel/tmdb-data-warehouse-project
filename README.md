@@ -41,10 +41,17 @@ For a full architecture diagram, see ['docs/TMBD_data_architecture.png'](docs/TM
 Stores the raw movie data exactly as it appears in the source CSV. No transformations applied. Acts as the original file to fall back on if our code breaks.
 
 ### Silver Layer
-Cleans and standardizes the raw data:
-- Handles missing and null values
-- Standardizes data types (dates, booleans, numerics)
-- Parses the 'genres' column (comma-separated text) into a normalized bridge table linking movies to genres
+Cleans and standardizes the raw Bronze data:
+- Filters to Released movies only
+- Casts all columns to correct data types
+- Handles NULL and empty string values
+- Removes 1,074 duplicate movie records
+- Normalizes genres into a relational bridge table (silver.genres and silver.movie_genres)
+
+Data Cleaning Rules (silver_movies_clean.sql):
+- Zero values for budget, revenue, runtime, vote_count, and popularity were set to NULL as they represent unreported data rather than actual zero values
+- Release dates before 1888-01-01 set to NULL as cinema did not exist before this date
+- Release dates after 2025-12-31 set to NULL to prevent partial period bias in release pattern analysis
 
 ### Gold Layer
 Produces analytics-ready aggregated tables designed to answer specific business questions about movies popularity, genres, ratings, and release patterns.
