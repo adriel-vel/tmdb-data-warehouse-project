@@ -58,6 +58,49 @@ Produces analytics-ready aggregated tables designed to answer specific business 
 
 ---
 
+## Pipeline Execution Order
+
+Run the scripts in the following order. Complete each step fully before moving to the next.
+
+### Step 1 — Database setup
+```
+scripts/bronze/init_tmdb_database.sql
+```
+Creates the `tmdb_warehouse` database and the `bronze`, `silver`, and `gold` schemas.
+> This drops and recreates the database. Do not run on a live instance with data you want to keep.
+
+### Step 2 — Bronze layer
+```
+scripts/bronze/extract_tmdb_movies.py     # Downloads the CSV via Kaggle API
+scripts/bronze/load_tmdb_movies.py        # Loads the CSV into bronze.tmdb_movies
+```
+
+### Step 3 — Silver layer
+```
+scripts/silver/init_silver_tables.sql     # Creates silver.movies, silver.genres, silver.movie_genres
+scripts/silver/silver_movies.sql          # Deduplicates and casts bronze data into silver.movies
+scripts/silver/silver_genres.py           # Normalizes genres into silver.genres and silver.movie_genres
+scripts/silver/silver_movies_clean.sql    # Applies data cleaning rules (zeros → NULL, invalid dates → NULL)
+```
+
+### Step 4 — Gold layer
+```
+scripts/gold/init_gold_tables.sql         # Creates gold.movie_metrics, gold.genre_metrics, gold.release_metrics
+scripts/gold/gold_movie_metrics.sql       # Loads movie performance metrics
+scripts/gold/gold_genre_metrics.sql       # Loads movie-genre pairs with popularity
+scripts/gold/gold_release_metrics.sql     # Loads release timing metrics
+```
+
+### Step 5 — Quality checks (optional but recommended)
+```
+tests/silver_quality_checks.sql           # Validates silver layer integrity
+tests/gold_quality_checks.sql             # Validates gold layer integrity
+```
+
+---
+
+---
+
 ## Analytics & Reporting
 
 ### Objective
@@ -76,17 +119,30 @@ The warehouse supports analysis such as:
 ```
 tmdb-warehouse/
 ├── datasets/
-│   └── raw/                  # Raw CSV file (not committed to git)
-├── docs/                     # Architecture diagrams and data catalog
+│   └── raw/                          # Raw CSV file (not committed to git)
+├── docs/
+│   ├── TMDB_data_architecture.drawio # High-level architecture diagram
+│   ├── TMDB_data_flow.drawio         # Table-level data flow diagram
+│   └── data_catalog.md               # Gold layer data dictionary
 ├── scripts/
-│   ├── init_tmdb_database.sql    # Database and schema setup
-│   ├── extract_tmdb_movies.py    # Download dataset via Kaggle API
-│   ├── load_tmdb_movies.py       # Load CSV into bronze layer
-│   ├── silver_movies.sql         # Clean and standardize movies
-│   ├── silver_genres.sql         # Normalize genres into bridge table
-│   └── gold_*.sql                # Gold layer analytics tables
-├── tests/                    # Pipeline tests
-├── .env.example              # Environment variable template
+│   ├── bronze/
+│   │   ├── init_tmdb_database.sql    # Database and schema setup
+│   │   ├── extract_tmdb_movies.py    # Download dataset via Kaggle API
+│   │   └── load_tmdb_movies.py       # Load CSV into bronze layer
+│   ├── silver/
+│   │   ├── init_silver_tables.sql    # Create silver layer tables
+│   │   ├── silver_movies.sql         # Deduplicate and cast movies
+│   │   ├── silver_genres.py          # Normalize genres into bridge table
+│   │   └── silver_movies_clean.sql   # Apply data cleaning rules
+│   └── gold/
+│       ├── init_gold_tables.sql      # Create gold layer tables
+│       ├── gold_movie_metrics.sql    # Movie performance metrics
+│       ├── gold_genre_metrics.sql    # Genre popularity metrics
+│       └── gold_release_metrics.sql  # Release timing metrics
+├── tests/
+│   ├── silver_quality_checks.sql     # Silver layer validation queries
+│   └── gold_quality_checks.sql       # Gold layer validation queries
+├── .env.example                      # Environment variable template
 ├── .gitignore
 ├── requirements.txt
 └── README.md
@@ -100,6 +156,23 @@ tmdb-warehouse/
 - Python 3.8+
 - PostgreSQL
 - A Kaggle account with an API key ('kaggle.json')
+
+### Setup
+
+1. Clone the repository and create a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate      # Mac/Linux
+venv\Scripts\activate         # Windows
+pip install -r requirements.txt
+```
+
+2. Copy `.env.example` to `.env` and fill in your credentials:
+```bash
+cp .env.example .env
+```
+
+3. Follow the **Pipeline Execution Order** section above.
 
 ---
 
