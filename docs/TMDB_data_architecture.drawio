@@ -157,6 +157,18 @@
         <mxCell id="PGUGkUBFgeEqB8SwDmcC-1" parent="1" style="html=1;verticalLabelPosition=bottom;align=center;labelBackgroundColor=#ffffff;verticalAlign=top;strokeWidth=2;strokeColor=#0080F0;shadow=0;dashed=0;shape=mxgraph.ios7.icons.data;" value="&lt;font face=&quot;Courier New&quot;&gt;TMDB Movies Dataset&lt;/font&gt;" vertex="1">
           <mxGeometry height="114" width="89.11" x="85.45" y="298" as="geometry" />
         </mxCell>
+        <mxCell id="jMH5mB51DXWadHUdkCxj-1" parent="1" style="line;strokeWidth=2;html=1;" value="" vertex="1">
+          <mxGeometry height="10" width="1120" x="90" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="jMH5mB51DXWadHUdkCxj-2" parent="1" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" value="&lt;font face=&quot;Courier New&quot;&gt;High Level Architecture&lt;/font&gt;" vertex="1">
+          <mxGeometry height="40" width="100" x="600" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="jMH5mB51DXWadHUdkCxj-3" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/databases/Azure_Database_PostgreSQL_Server.svg;" value="" vertex="1">
+          <mxGeometry height="40" width="30" x="320" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="jMH5mB51DXWadHUdkCxj-4" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font face=&quot;Courier New&quot;&gt;PostgreSQL&lt;/font&gt;" vertex="1">
+          <mxGeometry height="35" width="90" x="345" y="122.5" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
