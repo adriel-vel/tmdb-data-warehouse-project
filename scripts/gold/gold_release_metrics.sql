@@ -1,5 +1,7 @@
+/* Truncate gold release_metrics table if it exists to prevent duplicate entries */
 TRUNCATE TABLE gold.release_metrics;
 
+/* Insert data into gold.release_metrics table from silver.movies */
 INSERT INTO gold.release_metrics(
     movie_id,
     title,
@@ -10,6 +12,7 @@ INSERT INTO gold.release_metrics(
     popularity
 )
 
+/* Select and transform data to extract release year, month, and quarter */
 SELECT
     id AS movie_id,
     title,

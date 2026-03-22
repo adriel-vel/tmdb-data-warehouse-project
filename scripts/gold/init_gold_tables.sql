@@ -1,3 +1,10 @@
+/*
+================================================
+Create Gold Database Tables
+================================================
+*/
+
+/* Creates the gold.movie_metrics table if it does not already exist */
 CREATE TABLE IF NOT EXISTS gold.movie_metrics(
     movie_id              INTEGER PRIMARY KEY,
     title                 TEXT,
@@ -12,6 +19,7 @@ CREATE TABLE IF NOT EXISTS gold.movie_metrics(
     vote_reliability      NUMERIC
 );
 
+/* Creates the gold.genre_metrics table if it does not already exist */
 CREATE TABLE IF NOT EXISTS gold.genre_metrics(
     movie_id              INTEGER,
     genre_id              INTEGER,
@@ -21,6 +29,7 @@ CREATE TABLE IF NOT EXISTS gold.genre_metrics(
     PRIMARY KEY (movie_id, genre_id)
 );
 
+/* Creates the gold.release_metrics table if it does not already exist */
 CREATE TABLE IF NOT EXISTS gold.release_metrics(
     movie_id              INTEGER PRIMARY KEY,
     title                 TEXT,

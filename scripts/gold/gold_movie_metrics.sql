@@ -1,5 +1,7 @@
+/* Truncate gold movie_metrics table if it exists to prevent duplicate entries */
 TRUNCATE TABLE gold.movie_metrics;
 
+/* Insert data into gold.movie_metrics table from silver.movies */
 INSERT INTO gold.movie_metrics(
     movie_id,
     title,
@@ -13,6 +15,8 @@ INSERT INTO gold.movie_metrics(
     popularity_tier,
     vote_reliability
 )
+
+/* Select and transform data to calculate profit, categorize popularity, and compute vote reliability */
 SELECT
     id AS movie_id,
     title,
