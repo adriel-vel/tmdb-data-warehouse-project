@@ -35,7 +35,7 @@ The dataset contains movie metadata sourced from The Movie Database (TMDB), incl
 
 This project follows the **Medallion Architecture** pattern, organizing data into three progressive layers (Bronze, Silver, and Gold).
 
-For a full architecture diagram, see !['docs/TMDB_data_architecture.png'](docs/TMDB_data_architecture.png).
+For a full architecture diagram: !['docs/TMDB_data_architecture.png'](docs/TMDB_data_architecture.png).
 
 ### Bronze Layer
 Stores the raw movie data exactly as it appears in the source CSV. No transformations applied. Acts as the original file to fall back on if our code breaks.
