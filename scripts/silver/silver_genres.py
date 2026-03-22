@@ -18,7 +18,19 @@ def load_genres():
     cursor = conn.cursor()
 
     # Step 1: Fetch all movies that have genres
-    cursor.execute("""SELECT id, genres FROM bronze.tmdb_movies WHERE genres IS NOT NULL AND genres <> '' AND status = 'Released';""")
+    cursor.execute("""
+        SELECT id, genres
+        FROM bronze.tmdb_movies
+        WHERE status = 'Released'
+          AND genres IS NOT NULL
+          AND genres <> ''
+          AND id IN (
+              SELECT MIN(id)
+              FROM bronze.tmdb_movies
+              WHERE status = 'Released'
+              GROUP BY id
+          );
+    """)
     movies = cursor.fetchall()
 
     #Step 2, 3, 4, 5: Loop through movies

@@ -21,18 +21,16 @@ df = pd.read_csv("datasets/raw/TMDB_movie_dataset_v11.csv", dtype=str)
 engine = create_engine(f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}")
 
 def load_movies(df, engine):
-
-    # This will open a database connection, delete all rows from bronze.tmdb_movies, and commit that change
-    with engine.connect() as conn:
+    # This function takes our DataFrame and engine, truncates the target table to remove old data, and then loads the new data from the DataFrame into the `bronze.tmdb_movies` table
+    with engine.begin() as conn:
         conn.execute(text("TRUNCATE TABLE bronze.tmdb_movies"))
-        conn.commit()
-    # This bulk inserts the DataFrame into bronze.tmdb_movies, appending to the existing table structure
-    df.to_sql(
-        name="tmdb_movies",
-        schema="bronze",
-        con=engine,
-        if_exists="append",
-        index=False
+        df.to_sql(
+            name="tmdb_movies",
+            schema="bronze",
+            con=conn,
+            if_exists="append",
+            index=False
         )
     print("Movies loaded into bronze.tmdb_movies successfully!")
+ 
 load_movies(df, engine)
