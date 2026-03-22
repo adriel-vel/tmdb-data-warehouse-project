@@ -178,7 +178,7 @@ cp .env.example .env
 
 ## License
 
-This project is licensed under the MIT License. You are free to use, modify, and distribute this project for educational or personal use.\
+This project is licensed under the MIT License. You are free to use, modify, and distribute this project for educational or personal use.
 
 ## About Me
 
