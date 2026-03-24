@@ -1,0 +1,16 @@
+# Linguist language classification for GitHub
+# Ensures the repository language breakdown accurately reflects the tech stack
+
+# Core project languages — counted in GitHub's language stats
+*.py linguist-language=Python
+*.sql linguist-language=SQL
+
+# Documentation — excluded from language stats
+*.md linguist-documentation
+docs/** linguist-documentation
+
+# Data files — excluded from language stats
+*.csv linguist-vendored
+
+# Draw.io diagrams — excluded from language stats
+*.drawio linguist-vendored

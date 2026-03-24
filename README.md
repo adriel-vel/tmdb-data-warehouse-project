@@ -64,9 +64,11 @@ Run the scripts in the following order. Complete each step fully before moving t
 
 ### Step 1 — Database setup
 ```
-scripts/bronze/init_tmdb_database.sql
+scripts/bronze/01_create_database.sql     # Connected to 'postgres' — creates the tmdb_warehouse database
+scripts/bronze/02_create_schemas.sql      # Connected to 'tmdb_warehouse' — creates schemas and bronze table
 ```
-Creates the `tmdb_warehouse` database and the `bronze`, `silver`, and `gold` schemas.
+> **Important:** After running `01_create_database.sql`, you must switch your connection to `tmdb_warehouse` before running `02_create_schemas.sql`. In pgAdmin, right-click the new database and select "Query Tool". In psql, run `\c tmdb_warehouse`.
+ 
 > This drops and recreates the database. Do not run on a live instance with data you want to keep.
 
 ### Step 2 — Bronze layer
@@ -126,7 +128,8 @@ tmdb-warehouse/
 │   └── data_catalog.md               # Gold layer data dictionary
 ├── scripts/
 │   ├── bronze/
-│   │   ├── init_tmdb_database.sql    # Database and schema setup
+│   │   ├── 01_create_database.sql    # Database creation (connect to 'postgres')
+│   │   ├── 02_create_schemas.sql     # Schema and bronze table setup (connect to 'tmdb_warehouse')
 │   │   ├── extract_tmdb_movies.py    # Download dataset via Kaggle API
 │   │   └── load_tmdb_movies.py       # Load CSV into bronze layer
 │   ├── silver/

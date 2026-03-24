@@ -1,7 +1,7 @@
-/* Truncate Silver Tables if they exist to prevent duplicate entries */
-TRUNCATE TABLE silver.movie_genres;
-TRUNCATE TABLE silver.genres;
-TRUNCATE TABLE silver.movies;
+/* Truncate Silver Tables with CASCADE to remove dependent data */
+TRUNCATE TABLE silver.movie_genres CASCADE;
+TRUNCATE TABLE silver.genres CASCADE;
+TRUNCATE TABLE silver.movies CASCADE;
 
 /* CTE to find movies that have duplicate entries and only grab the first occurrence*/
 WITH deduplicated AS(
