@@ -3,6 +3,7 @@
 
 # Core project languages — counted in GitHub's language stats
 *.py linguist-language=Python
+*.sql linguist-detectable
 *.sql linguist-language=SQL
 
 # Documentation — excluded from language stats
